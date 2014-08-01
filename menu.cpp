@@ -49,14 +49,16 @@ void mainMenu::firstLoad()
     int ALPHA = 0;
     while ( ALPHA <= 255 )
     {
+        cout << "alpha is " << ALPHA << endl;
         SDL_RenderClear(renderer);
+        SDL_SetTextureBlendMode(background, SDL_BLENDMODE_BLEND);
         SDL_SetTextureAlphaMod(background, ALPHA);
         SDL_RenderCopy(renderer, background, NULL, NULL);
         SDL_RenderPresent(renderer);
         ALPHA += 5;
         //SDL_Delay(2);
-        menuMusic(true);
     }
+    menuMusic(true);
 }
 
 int mainMenu::load()
