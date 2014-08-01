@@ -49,7 +49,6 @@ void SDLGraphics::endScene()
 
 SDL_Texture* loadTexture(const string &str)
 {
-    cout << "texture is:  " << str << endl;
     SDL_Surface* surface = IMG_Load(str.c_str());
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);

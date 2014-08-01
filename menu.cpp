@@ -11,6 +11,7 @@ mainMenu::mainMenu()
     optionsSelect=loadTexture("images/optionsSelected.png");
     gMusic = Mix_LoadMUS("audio/mainMenu1.mp3");
     gSelect = Mix_LoadWAV("audio/select.wav");
+    Mix_Volume(2, currentSVolume);
     StarT.x = 110;
     StarT.y = 335;
     StarT.w = 114;
@@ -465,6 +466,7 @@ void mainMenu::menuMusic(bool isOn)
 {
     if (isOn)
     {
+        Mix_VolumeMusic(currentMVolume);
         Mix_PlayMusic(gMusic, 1);
     }
     else
