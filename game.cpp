@@ -2,7 +2,7 @@
 int game::intro()
 {
     bool introRunning = true;
-    bool introQuit;
+    bool introQuit = false;;
     int introPos = 1;
     SDL_Texture* intro1;
     SDL_Texture* intro2;
@@ -77,5 +77,63 @@ int game::intro()
                 }
             }
         }
+    }
+}
+
+int game::level()
+{
+    background = loadTexture("images/forrest.png");
+    bool levelRun = true;
+    bool quit = false;
+    player* g_player = NULL;
+    g_player = new player();
+    while (levelRun)
+    {
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, background, NULL, NULL);
+        g_player->draw();
+        SDL_RenderPresent(renderer);
+        SDL_Event event;
+        while (SDL_PollEvent(&event) != 0)
+        {
+            if (event.type == SDL_QUIT)
+            {
+                levelRun = false;
+                quit = true;
+            }
+            else if (event.type == SDL_KEYDOWN)
+            {
+                switch(event.key.keysym.sym)
+                {
+                    case SDLK_RIGHT:
+                        cout << "right pressed" << endl;
+                        g_player->moveRight();
+                        g_player->playerFlip = false;
+                        break;
+                    case SDLK_LEFT:
+                        cout << "left pressed" << endl;
+                        g_player->moveLeft();
+                        g_player->playerFlip = true;
+                        break;
+                    case SDLK_ESCAPE:
+                        cout << "escape pressed" << endl;
+                        levelRun = false;
+                        quit = true;
+                        break;
+                }
+            }
+        }
+
+
+
+    }
+    delete g_player;
+    if (quit)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
     }
 }

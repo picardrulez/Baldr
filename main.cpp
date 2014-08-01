@@ -21,34 +21,41 @@ int main(int argc, char* args[])
     g_menu = new mainMenu();
     g_game = new game();
 
-    g_menu->firstLoad();
-    bool inMenu = true;
-    int menuStatus;
-    while (inMenu)
-    {
-        menuStatus = g_menu->load();
-        if (menuStatus == 2)
-        {
-            menuStatus = g_menu->loadOptions();
-        }
-        if (menuStatus == 1)
-        {
-            inMenu = false;
-        }
-        if (menuStatus == 0)
-        {
-            inMenu = false;
-            gameRunning = false;
-        }
-    }
     while (gameRunning)
     {
-        cout << "game is running" << endl;
+        g_menu->firstLoad();
+        bool inMenu = true;
+        int menuStatus;
+        while (inMenu)
+        {
+            menuStatus = g_menu->load();
+            if (menuStatus == 2)
+            {
+                menuStatus = g_menu->loadOptions();
+            }
+            if (menuStatus == 1)
+            {
+                inMenu = false;
+            }
+            if (menuStatus == 0)
+            {
+                inMenu = false;
+                gameRunning = false;
+            }
+        }
         int gameStatus = g_game->intro();
-        cout << "gameStatus is:  " << gameStatus << endl;
+        cout << "gameStatus is " << gameStatus << endl;
         if (gameStatus == 0)
         {
             gameRunning = false;
+            return 0;
+        }
+        cout << "starting level" << endl;
+        gameStatus = g_game->level();
+        if (gameStatus == 0)
+        {
+            gameRunning = false;
+            return 0;
         }
     }
 delete g_menu;
