@@ -11,6 +11,7 @@ class mainMenu
         void firstLoad();
         int load();
         int loadOptions();
+        void menuMusic(bool isOn);
 
     private:
         string currentSelect;

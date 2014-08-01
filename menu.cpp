@@ -54,6 +54,7 @@ void mainMenu::firstLoad()
         SDL_RenderPresent(renderer);
         ALPHA += 5;
         //SDL_Delay(2);
+        menuMusic(true);
     }
 }
 
@@ -457,5 +458,17 @@ int mainMenu::loadOptions()
                 }
             }
         }
+    }
+}
+
+void mainMenu::menuMusic(bool isOn)
+{
+    if (isOn)
+    {
+        Mix_PlayMusic(gMusic, 1);
+    }
+    else
+    {
+        Mix_HaltMusic();
     }
 }
