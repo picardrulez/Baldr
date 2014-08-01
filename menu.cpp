@@ -305,6 +305,10 @@ int mainMenu::loadOptions()
                                 break;
                             case SDLK_DOWN:
                                 Mix_PlayChannel(2, gSelect, 0);
+                                optionsSelection = "mvolume";
+                                break;
+                            case SDLK_ESCAPE:
+                                Mix_PlayChannel(2, gSelect, 0);
                                 inOptions = false;
                                 SDL_RenderClear(renderer);
                                 break;
