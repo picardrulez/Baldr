@@ -1,4 +1,15 @@
 #include "game.h"
+game::game()
+{
+    g_player = new player(0);
+    cout << "g_player has been created, mVel is:  " << g_player->mVel << endl;
+    cout << "g_player P_VEL is " << g_player->P_VEL << endl;
+    cout << "g_player geoffTest is " << g_player->geoffTest << endl;
+    cout << "int is broke, bandaid fixing to equal 0" << endl;
+    g_player->mVel = 0;
+    cout << "mVel is now:  " << g_player->mVel << endl;
+    int mVel = 0;
+}
 int game::intro()
 {
     bool introRunning = true;
@@ -85,8 +96,6 @@ int game::level()
     background = loadTexture("images/forrest.png");
     bool levelRun = true;
     bool quit = false;
-    player* g_player = NULL;
-    g_player = new player();
     while (levelRun)
     {
         SDL_RenderClear(renderer);
@@ -101,27 +110,11 @@ int game::level()
                 levelRun = false;
                 quit = true;
             }
-            else if (event.type == SDL_KEYDOWN)
-            {
-                switch(event.key.keysym.sym)
-                {
-                    case SDLK_RIGHT:
-                        cout << "right pressed" << endl;
-                        g_player->moveRight();
-                        g_player->playerFlip = false;
-                        break;
-                    case SDLK_LEFT:
-                        cout << "left pressed" << endl;
-                        g_player->moveLeft();
-                        g_player->playerFlip = true;
-                        break;
-                    case SDLK_ESCAPE:
-                        cout << "escape pressed" << endl;
-                        levelRun = false;
-                        quit = true;
-                        break;
-                }
-            }
+            eventHandler(event);
+            cout << "current Location is:  " << g_player->PlayeR.x <<", " << g_player->PlayeR.y << endl;
+            cout << "current mVel is:  " << g_player->mVel << endl;
+            g_player->move();
+            g_player->draw();
         }
 
 
@@ -135,5 +128,41 @@ int game::level()
     else
     {
         return 1;
+    }
+}
+
+void game::eventHandler(SDL_Event& event)
+{
+    if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
+    {
+        switch(event.key.keysym.sym)
+        {
+            case SDLK_RIGHT:
+                cout << "right pressed, adding " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
+                g_player->mVel += g_player->P_VEL;
+                g_player->playerFlip = false;
+                break;
+            case SDLK_LEFT:
+                cout << "left pressed, subtracting" << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_vel" << endl;
+                g_player->mVel -= g_player->P_VEL;
+                g_player->playerFlip = true;
+                break;
+        }
+    }
+    else if (event.type == SDL_KEYUP && event.key.repeat == 0)
+    {
+        switch (event.key.keysym.sym)
+        {
+            case SDLK_RIGHT:
+                cout << "right released, subtracting " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
+                g_player->mVel -= g_player->P_VEL;
+                g_player->playerFlip = false;
+                break;
+            case SDLK_LEFT:
+                cout << "left released, adding " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
+                g_player->mVel += g_player->P_VEL;
+                g_player->playerFlip = true;
+                break;
+        }
     }
 }

@@ -2,15 +2,19 @@
 class player
 {
     public:
-        player();
+        player(int num);
         ~player();
 
         void moveLeft();
         void moveRight();
         void jump();
         void draw();
+        void move();
         bool playerFlip;
-    private:
+        int geoffTest;
+        static const int P_VEL = 10;
+        int mVel;
+//    private:
         SDL_Texture* character;
         SDL_Rect PlayeR;
 };

@@ -1,5 +1,5 @@
 #include "player.h"
-player::player()
+player::player(int num)
 {
     int iW, iH;
     character=loadTexture("images/character.png");
@@ -8,6 +8,10 @@ player::player()
     PlayeR.y = 200;
     PlayeR.w = iW;
     PlayeR.h = iH;
+    cout << "setting mVel to 0" << endl;
+    int geoffTest = 420;
+    int mVel = num;
+    cout << "mVel is now: " << mVel << endl;
     bool playerFlip = false;
 }
 player::~player()
@@ -35,4 +39,9 @@ void player::draw()
     {
         SDL_RenderCopyEx(renderer, character, NULL, &PlayeR, 0, 0, SDL_FLIP_HORIZONTAL);
     }
+}
+
+void player::move()
+{
+    PlayeR.x += mVel; 
 }
