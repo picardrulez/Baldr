@@ -113,9 +113,10 @@ int game::level()
             eventHandler(event);
             cout << "current Location is:  " << g_player->PlayeR.x <<", " << g_player->PlayeR.y << endl;
             cout << "current mVel is:  " << g_player->mVel << endl;
+        }
             g_player->move();
             g_player->draw();
-        }
+        
 
 
 
