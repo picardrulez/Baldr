@@ -9,7 +9,7 @@ mainMenu::mainMenu()
     startSelect=loadTexture("images/startSelected.png");
     options=loadTexture("images/options.png");
     optionsSelect=loadTexture("images/optionsSelected.png");
-    gMusic = Mix_LoadMUS("audio/mainMenu1.mp3");
+    mMusic = Mix_LoadMUS("audio/mainMenu1.mp3");
     gSelect = Mix_LoadWAV("audio/select.wav");
     Mix_Volume(2, currentSVolume);
     StarT.x = 110;
@@ -32,14 +32,14 @@ mainMenu::~mainMenu()
     SDL_DestroyTexture(options);
     SDL_DestroyTexture(optionsSelect);
     Mix_FreeChunk(gSelect);
-    Mix_FreeMusic(gMusic);
+    Mix_FreeMusic(mMusic);
     background = NULL;
     blankBackground = NULL;
     start = NULL;
     startSelect = NULL;
     options = NULL;
     optionsSelect = NULL;
-    gMusic = NULL;
+    mMusic = NULL;
     gSelect = NULL;
 }
 
@@ -469,7 +469,7 @@ void mainMenu::menuMusic(bool isOn)
     if (isOn)
     {
         Mix_VolumeMusic(currentMVolume);
-        Mix_PlayMusic(gMusic, 1);
+        Mix_PlayMusic(mMusic, 1);
     }
     else
     {

@@ -21,7 +21,7 @@ extern SDL_Window* window;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* loadTexture(const string &str);
 extern SDL_Texture* renderText(const string &message, const string &fontFile, SDL_Color color, int fontSize, SDL_Renderer* renderer);
-extern Mix_Music * gMusic;
+//extern Mix_Music * gMusic;
 extern Mix_Chunk* gSelect;
 
 class SDLGraphics

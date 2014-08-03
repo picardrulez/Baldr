@@ -43,6 +43,7 @@ int main(int argc, char* args[])
                 gameRunning = false;
             }
         }
+        g_menu->menuMusic(false);
         int gameStatus = g_game->intro();
         cout << "gameStatus is " << gameStatus << endl;
         if (gameStatus == 0)

@@ -9,9 +9,11 @@ game::game()
     g_player->mVel = 0;
     cout << "mVel is now:  " << g_player->mVel << endl;
     int mVel = 0;
+    gMusic = Mix_LoadMUS("audio/mainMenu2.mp3");
 }
 int game::intro()
 {
+    musicOn(true);
     bool introRunning = true;
     bool introQuit = false;;
     int introPos = 1;
@@ -165,5 +167,18 @@ void game::eventHandler(SDL_Event& event)
                 g_player->playerFlip = true;
                 break;
         }
+    }
+}
+
+void game::musicOn(bool isOn)
+{
+    if (isOn)
+    {
+        Mix_VolumeMusic(currentMVolume);
+        Mix_PlayMusic(gMusic, 1);
+    }
+    else
+    {
+        Mix_HaltMusic();
     }
 }

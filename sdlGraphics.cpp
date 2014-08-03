@@ -8,7 +8,7 @@ string difficultySetting = "normal";
 
 SDL_Window* window;
 SDL_Renderer* renderer;
-Mix_Music* gMusic = NULL;
+//Mix_Music* gMusic = NULL;
 Mix_Chunk* gSelect = NULL;
 
 SDLGraphics::SDLGraphics(int screenWidth, int screenHeight, const char* windowTitle)

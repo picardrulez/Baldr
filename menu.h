@@ -19,6 +19,7 @@ class mainMenu
         SDL_Rect StarT;
         SDL_Rect OptionS;
 
+        Mix_Music * mMusic;
         SDL_Texture* background;
         SDL_Texture* blankBackground;
         SDL_Texture* start;

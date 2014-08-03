@@ -8,9 +8,11 @@ class game
         game();
         int intro();
         int level();
+        void musicOn(bool isOn);
         void eventHandler(SDL_Event& event);
         int mVel;
     private:
+        Mix_Music * gMusic;
         player* g_player;
         SDL_Texture* background;
 };
