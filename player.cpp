@@ -44,4 +44,8 @@ void player::draw()
 void player::move()
 {
     PlayeR.x += mVel; 
+    if ((PlayeR.x < 0) || ( PlayeR.x + PlayeR.w > SCREEN_WIDTH))
+    {
+        PlayeR.x -= mVel;
+    }
 }

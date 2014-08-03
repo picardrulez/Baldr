@@ -12,7 +12,7 @@ class player
         void move();
         bool playerFlip;
         int geoffTest;
-        static const int P_VEL = 1;
+        static const int P_VEL = 4;
         int mVel;
 //    private:
         SDL_Texture* character;
