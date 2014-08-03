@@ -10,6 +10,7 @@ class game
         int level();
         void musicOn(bool isOn);
         void eventHandler(SDL_Event& event);
+        void pause();
         int mVel;
     private:
         Mix_Music * gMusic;

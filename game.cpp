@@ -113,9 +113,9 @@ int game::level()
                 quit = true;
             }
             eventHandler(event);
-            cout << "current Location is:  " << g_player->PlayeR.x <<", " << g_player->PlayeR.y << endl;
-            cout << "current mVel is:  " << g_player->mVel << endl;
         }
+            cout << "current Location is:  " << g_player->PlayeR.x << ", " << g_player->PlayeR.y << endl;
+            cout << "current mVel is:  " << g_player->mVel << endl;
             g_player->move();
             g_player->draw();
         
@@ -150,6 +150,10 @@ void game::eventHandler(SDL_Event& event)
                 g_player->mVel -= g_player->P_VEL;
                 g_player->playerFlip = true;
                 break;
+            case SDLK_ESCAPE:
+                cout << "escap pressed, starting pause()" << endl;
+                pause();
+                break;
         }
     }
     else if (event.type == SDL_KEYUP && event.key.repeat == 0)
@@ -181,4 +185,38 @@ void game::musicOn(bool isOn)
     {
         Mix_HaltMusic();
     }
+}
+
+void game::pause()
+{
+    bool inPause = true;
+    Mix_PauseMusic();
+    int iW, iH;
+    SDL_Color color = {255, 255, 255, 255 };
+    SDL_Texture* Paused = renderText("Paused", "fonts/NewRocker.otf", color, 42, renderer);
+    SDL_QueryTexture(Paused, NULL, NULL, &iW, &iH);
+    SDL_Rect PauseD;
+    PauseD.x = SCREEN_WIDTH / 2 - iW / 2;
+    PauseD.y = 35;
+    PauseD.w = iW;
+    PauseD.h = iH;
+    SDL_RenderCopy(renderer, Paused, NULL, &PauseD);
+    SDL_RenderPresent(renderer);
+    SDL_Event event;
+    while (inPause)
+    {
+        while (SDL_PollEvent(&event) !=0)
+        {
+            if (event.type == SDL_KEYDOWN)
+            {
+                switch(event.key.keysym.sym)
+                {
+                    case SDLK_ESCAPE:
+                        inPause = false;
+                        break;
+                }
+            }
+        }
+    }
+    Mix_ResumeMusic();
 }
