@@ -2,6 +2,8 @@
 game::game()
 {
     g_player = new player(0);
+    bool levelRun = true;
+    bool quit = false;
     cout << "g_player has been created, mVel is:  " << g_player->mVel << endl;
     cout << "g_player P_VEL is " << g_player->P_VEL << endl;
     cout << "g_player geoffTest is " << g_player->geoffTest << endl;
@@ -96,8 +98,6 @@ int game::intro()
 int game::level()
 {
     background = loadTexture("images/forrest.png");
-    bool levelRun = true;
-    bool quit = false;
     while (levelRun)
     {
         SDL_RenderClear(renderer);
@@ -126,6 +126,7 @@ int game::level()
     delete g_player;
     if (quit)
     {
+        cout << "returning 0" << endl;
         return 0;
     }
     else
@@ -207,6 +208,13 @@ void game::pause()
     {
         while (SDL_PollEvent(&event) !=0)
         {
+            if (event.type == SDL_QUIT)
+            {
+                quit = true;
+                inPause = false;
+                levelRun = false;
+                cout << "quit is now:  " << quit << endl;
+            }
             if (event.type == SDL_KEYDOWN)
             {
                 switch(event.key.keysym.sym)
