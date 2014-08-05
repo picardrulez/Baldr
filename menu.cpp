@@ -12,14 +12,14 @@ mainMenu::mainMenu()
     mMusic = Mix_LoadMUS("audio/mainMenu1.mp3");
     gSelect = Mix_LoadWAV("audio/select.wav");
     Mix_Volume(2, currentSVolume);
-    StarT.x = 110;
     StarT.y = 335;
     StarT.w = 114;
+    StarT.x = (SCREEN_WIDTH / 4 - StarT.w) + SCREEN_WIDTH / 8;
     StarT.h = 49;
-    OptionS.x = 350;
     OptionS.y = 335;
     OptionS.w = 165;
     OptionS.h = 57;
+    OptionS.x = (SCREEN_WIDTH / 4 + SCREEN_WIDTH / 2 - OptionS.w / 2) - SCREEN_WIDTH / 8;
 
 }
 
@@ -205,16 +205,19 @@ int mainMenu::loadOptions()
         SDL_QueryTexture(settingBar, NULL, NULL, &iW, &iH);
         SbaR.w = iW;
         SbaR.h = iH;
-        int mStop = currentMVolume * 4.2;
-        for (int i = 100; i < mStop; i += 10)
+        cout << "current volume is " << currentMVolume << endl;
+        cout << "current volume / 128 is " << (float)currentMVolume / 128 << endl;
+        cout << "current volume percentage is " << (((float)currentMVolume / 128) * 100) << endl;
+        int mStop = (SCREEN_WIDTH / 3) + ((SCREEN_WIDTH / 3) * ((float)currentMVolume / 128));
+        for (int i = SCREEN_WIDTH / 3; i < mStop; i += 10)
         {
             SbaR.x = i;
             SbaR.y = 200;
             SDL_RenderCopy(renderer, settingBar, NULL, &SbaR);
         }
-        int sStop = currentSVolume * 4.2;
+        int sStop = (SCREEN_WIDTH / 3) + ((SCREEN_WIDTH / 3) * ((float)currentSVolume / 128));
         SDL_RenderCopy(renderer, Svolume, NULL, &SvolumE);
-        for (int i = 100; i < sStop; i += 10)
+        for (int i = SCREEN_WIDTH / 3; i < sStop; i += 10)
         {
             SbaR.x = i;
             SbaR.y = 330;

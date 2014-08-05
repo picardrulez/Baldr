@@ -43,20 +43,23 @@ int main(int argc, char* args[])
                 gameRunning = false;
             }
         }
-        g_menu->menuMusic(false);
-        int gameStatus = g_game->intro();
-        cout << "gameStatus is " << gameStatus << endl;
-        if (gameStatus == 0)
+        if (menuStatus != 0)
         {
-            gameRunning = false;
-            return 0;
-        }
-        cout << "starting level" << endl;
-        gameStatus = g_game->level();
-        if (gameStatus == 0)
-        {
-            gameRunning = false;
-            return 0;
+            g_menu->menuMusic(false);
+            int gameStatus = g_game->intro();
+            cout << "gameStatus is " << gameStatus << endl;
+            if (gameStatus == 0)
+            {
+                gameRunning = false;
+                return 0;
+            }
+            cout << "starting level" << endl;
+            gameStatus = g_game->level();
+            if (gameStatus == 0)
+            {
+                gameRunning = false;
+                return 0;
+            }
         }
     }
 delete g_menu;
