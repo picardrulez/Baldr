@@ -64,3 +64,11 @@ SDL_Texture* renderText(const string &message, const string &fontFile, SDL_Color
     TTF_CloseFont(font);
     return texture;
 }
+
+SDL_Texture* textureWindow()
+{
+    SDL_Surface* surface = SDL_GetWindowSurface(window);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    return texture;
+}

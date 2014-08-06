@@ -192,20 +192,64 @@ void game::pause()
 {
     bool inPause = true;
     Mix_PauseMusic();
+    string currentSelect = "settings";
     int iW, iH;
     SDL_Color color = {255, 255, 255, 255 };
+    SDL_Texture* Selection = loadTexture("images/redSelect.png");
+    SDL_Texture* transBack;
+    transBack=loadTexture("images/darkTrans.png");
+    SDL_RenderCopy(renderer, transBack, NULL, NULL);
     SDL_Texture* Paused = renderText("Paused", "fonts/NewRocker.otf", color, 42, renderer);
     SDL_QueryTexture(Paused, NULL, NULL, &iW, &iH);
     SDL_Rect PauseD;
     PauseD.x = SCREEN_WIDTH / 2 - iW / 2;
-    PauseD.y = 35;
+    PauseD.y = 50;
     PauseD.w = iW;
     PauseD.h = iH;
     SDL_RenderCopy(renderer, Paused, NULL, &PauseD);
+    SDL_Texture* Settings = renderText("Settings", "fonts/NewRocker.otf", color, 32, renderer);
+    SDL_QueryTexture(Settings, NULL, NULL, &iW, &iH);
+    SDL_Rect SettingS;
+    SettingS.x = SCREEN_WIDTH / 2 - iW / 2;
+    SettingS.y = 200;
+    SettingS.w = iW;
+    SettingS.h = iH;
+    SDL_RenderCopy(renderer, Settings, NULL, &SettingS);
+    SDL_Texture* Quit = renderText("Quit to Menu", "fonts/NewRocker.otf", color, 32, renderer);
+    SDL_QueryTexture(Quit, NULL, NULL, &iW, &iH);
+    SDL_Rect QuiT;
+    QuiT.x = SCREEN_WIDTH / 2 - iW / 2;
+    QuiT.y = 250;
+    QuiT.w = iW;
+    QuiT.h = iH;
+    SDL_RenderCopy(renderer, Quit, NULL, &QuiT);
     SDL_RenderPresent(renderer);
     SDL_Event event;
+    SDL_Texture* lastWindow = textureWindow();
+
     while (inPause)
     {
+        cout << "clearing" << endl;
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, lastWindow, NULL, NULL);
+//        SDL_RenderCopy(renderer, transBack, NULL, NULL);
+        SDL_RenderCopy(renderer, Paused, NULL, &PauseD);
+        SDL_RenderCopy(renderer, Settings, NULL, &SettingS);
+        SDL_RenderCopy(renderer, Quit, NULL, &QuiT);
+        cout << "currentSelect is " << currentSelect << endl;
+        if (currentSelect == "settings")
+        {
+            cout << "rendering settings" << endl;
+            SDL_RenderCopy(renderer, Selection, NULL, &SettingS);
+        }
+        else if (currentSelect == "quit")
+        {
+            cout << "rendering quit" << endl;
+            SDL_RenderCopy(renderer, Selection, NULL, &QuiT);
+        }
+        SDL_RenderPresent(renderer);
+
+        cout << "listening for input" << endl;
         while (SDL_PollEvent(&event) !=0)
         {
             if (event.type == SDL_QUIT)
@@ -215,13 +259,35 @@ void game::pause()
                 levelRun = false;
                 cout << "quit is now:  " << quit << endl;
             }
-            if (event.type == SDL_KEYDOWN)
+            else if (event.type == SDL_KEYDOWN)
             {
-                switch(event.key.keysym.sym)
+                if (currentSelect == "settings")
                 {
-                    case SDLK_ESCAPE:
-                        inPause = false;
-                        break;
+                    switch(event.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            inPause = false;
+                            break;
+                        case SDLK_DOWN:
+                            currentSelect = "quit";
+                            break;
+                    }
+                }
+                else if (currentSelect == "quit")
+                {
+                    switch(event.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            inPause = false;
+                            break;
+                        case SDLK_UP:
+                            currentSelect = "settings";
+                            break;
+                        case SDLK_RETURN:
+                            inPause = false;
+                            levelRun = false;
+                            break;
+                    }
                 }
             }
         }
