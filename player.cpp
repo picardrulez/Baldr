@@ -11,6 +11,7 @@ player::player(int num)
     cout << "setting mVel to 0" << endl;
     int geoffTest = 420;
     int mVel = num;
+    int jVel = num;
     cout << "mVel is now: " << mVel << endl;
     bool playerFlip = false;
 }

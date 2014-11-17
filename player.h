@@ -5,13 +5,13 @@ class player
         player(int num);
         ~player();
 
-        void stop();
         void jump();
         void draw();
         void move();
         bool playerFlip;
         int geoffTest;
         static const int P_VEL = 4;
+        int jVel;
         int mVel;
 //    private:
         SDL_Texture* character;

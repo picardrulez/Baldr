@@ -98,6 +98,7 @@ int game::intro()
 
 int game::level()
 {
+    g_player->jVel=5;
     g_player->mVel=0;
     background = loadTexture("images/forrest.png");
     while (levelRun)
@@ -159,6 +160,27 @@ void game::eventHandler(SDL_Event& event)
             case SDLK_ESCAPE:
                 cout << "escap pressed, starting pause()" << endl;
                 pause();
+                break;
+            case SDLK_SPACE:
+                int i = 0;
+                while (i < 10)
+                {
+                    g_player->PlayeR.y -= g_player->jVel;
+                    SDL_RenderClear(renderer);
+                    SDL_RenderCopy(renderer, background, NULL, NULL);
+                    g_player->draw();
+                    SDL_RenderPresent(renderer);
+                    i++;
+                }
+                while (i > 0)
+                {
+                    g_player->PlayeR.y += g_player->jVel;
+                    SDL_RenderClear(renderer);
+                    SDL_RenderCopy(renderer, background, NULL, NULL);
+                    g_player->draw();
+                    SDL_RenderPresent(renderer);
+                    i--;
+                }
                 break;
         }
     }
