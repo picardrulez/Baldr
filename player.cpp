@@ -19,15 +19,15 @@ player::~player()
     SDL_DestroyTexture(character);
     character = NULL;
 }
-void player::moveLeft()
-{
-    PlayeR.x = PlayeR.x -= 15;
-}
-
-void player::moveRight()
-{
-    PlayeR.x = PlayeR.x += 15;
-}
+//void player::moveLeft()
+//{
+//    PlayeR.x = PlayeR.x -= 15;
+//}
+//
+//void player::moveRight()
+//{
+//    PlayeR.x = PlayeR.x += 15;
+//}
 
 void player::draw()
 {

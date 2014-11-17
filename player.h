@@ -5,8 +5,8 @@ class player
         player(int num);
         ~player();
 
-        void moveLeft();
-        void moveRight();
+//        void moveLeft();
+//        void moveRight();
         void stop();
         void jump();
         void draw();
