@@ -4,13 +4,14 @@ game::game()
     g_player = new player(0);
     bool levelRun = true;
     bool quit = false;
+    firstPress = 0;
     cout << "g_player has been created, mVel is:  " << g_player->mVel << endl;
     cout << "g_player P_VEL is " << g_player->P_VEL << endl;
     cout << "g_player geoffTest is " << g_player->geoffTest << endl;
     cout << "int is broke, bandaid fixing to equal 0" << endl;
-    g_player->mVel = 0;
+    //g_player->mVel = 0;
     cout << "mVel is now:  " << g_player->mVel << endl;
-    int mVel = 0;
+    //int mVel = 0;
     gMusic = Mix_LoadMUS("audio/mainMenu2.mp3");
 }
 int game::intro()
@@ -97,6 +98,7 @@ int game::intro()
 
 int game::level()
 {
+    g_player->mVel=0;
     background = loadTexture("images/forrest.png");
     while (levelRun)
     {
@@ -116,6 +118,7 @@ int game::level()
         }
             cout << "current Location is:  " << g_player->PlayeR.x << ", " << g_player->PlayeR.y << endl;
             cout << "current mVel is:  " << g_player->mVel << endl;
+            cout << "first press is:  " << firstPress << endl;
             g_player->move();
             g_player->draw();
         
@@ -145,11 +148,13 @@ void game::eventHandler(SDL_Event& event)
                 cout << "right pressed, adding " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
                 g_player->mVel += g_player->P_VEL;
                 g_player->playerFlip = false;
+                firstPress = 1;
                 break;
             case SDLK_LEFT:
                 cout << "left pressed, subtracting" << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_vel" << endl;
                 g_player->mVel -= g_player->P_VEL;
                 g_player->playerFlip = true;
+                firstPress = 1;
                 break;
             case SDLK_ESCAPE:
                 cout << "escap pressed, starting pause()" << endl;
@@ -157,7 +162,7 @@ void game::eventHandler(SDL_Event& event)
                 break;
         }
     }
-    else if (event.type == SDL_KEYUP && event.key.repeat == 0)
+    else if (event.type == SDL_KEYUP && event.key.repeat == 0 && firstPress == 1)
     {
         switch (event.key.keysym.sym)
         {

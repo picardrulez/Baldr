@@ -7,6 +7,7 @@ class player
 
         void moveLeft();
         void moveRight();
+        void stop();
         void jump();
         void draw();
         void move();
