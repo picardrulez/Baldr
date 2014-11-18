@@ -16,6 +16,7 @@ game::game()
 }
 int game::intro()
 {
+    gMusic = Mix_LoadMUS("audio/intro.mp3");
     musicOn(true);
     bool introRunning = true;
     bool introQuit = false;;
@@ -39,6 +40,9 @@ int game::intro()
             intro2 = NULL;
             intro3 = NULL;
             introRunning = false;
+            musicOn(false);
+            gMusic = Mix_LoadMUS("audio/mainMenu2.mp3");
+            musicOn(true);
             if (introQuit)
             {
                 cout << "returning 0" << endl;

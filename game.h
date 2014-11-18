@@ -9,6 +9,7 @@ class game
         int intro();
         int level();
         void musicOn(bool isOn);
+        void introMusic(bool isOn);
         void eventHandler(SDL_Event& event);
         void pause();
         bool quit;
