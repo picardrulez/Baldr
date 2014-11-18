@@ -4,7 +4,7 @@ game::game()
     g_player = new player(0);
     bool levelRun = true;
     bool quit = false;
-    firstPress = 0;
+    isPressed = 0;
     cout << "g_player has been created, mVel is:  " << g_player->mVel << endl;
     cout << "g_player P_VEL is " << g_player->P_VEL << endl;
     cout << "g_player geoffTest is " << g_player->geoffTest << endl;
@@ -119,7 +119,7 @@ int game::level()
         }
             cout << "current Location is:  " << g_player->PlayeR.x << ", " << g_player->PlayeR.y << endl;
             cout << "current mVel is:  " << g_player->mVel << endl;
-            cout << "first press is:  " << firstPress << endl;
+            cout << "first press is:  " << isPressed << endl;
             g_player->move();
             g_player->draw();
         
@@ -141,7 +141,7 @@ int game::level()
 
 void game::eventHandler(SDL_Event& event)
 {
-    if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
+    if (event.type == SDL_KEYDOWN && event.key.repeat == 0 && isPressed == 0)
     {
         switch(event.key.keysym.sym)
         {
@@ -149,13 +149,13 @@ void game::eventHandler(SDL_Event& event)
                 cout << "right pressed, adding " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
                 g_player->mVel += g_player->P_VEL;
                 g_player->playerFlip = false;
-                firstPress = 1;
+                isPressed = 1;
                 break;
             case SDLK_LEFT:
                 cout << "left pressed, subtracting" << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_vel" << endl;
                 g_player->mVel -= g_player->P_VEL;
                 g_player->playerFlip = true;
-                firstPress = 1;
+                isPressed = 1;
                 break;
             case SDLK_ESCAPE:
                 cout << "escap pressed, starting pause()" << endl;
@@ -184,7 +184,7 @@ void game::eventHandler(SDL_Event& event)
                 break;
         }
     }
-    else if (event.type == SDL_KEYUP && event.key.repeat == 0 && firstPress == 1)
+    else if (event.type == SDL_KEYUP && event.key.repeat == 0 && isPressed == 1)
     {
         switch (event.key.keysym.sym)
         {
@@ -192,11 +192,13 @@ void game::eventHandler(SDL_Event& event)
                 cout << "right released, subtracting " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
                 g_player->mVel -= g_player->P_VEL;
                 g_player->playerFlip = false;
+                isPressed = 0;
                 break;
             case SDLK_LEFT:
                 cout << "left released, adding " << g_player->P_VEL << " P_VEL " << "to" << g_player->mVel << " m_Vel" << endl;
                 g_player->mVel += g_player->P_VEL;
                 g_player->playerFlip = true;
+                isPressed = 0;
                 break;
         }
     }

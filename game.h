@@ -13,7 +13,7 @@ class game
         void pause();
         bool quit;
         bool levelRun;
-        int firstPress;
+        int isPressed;
 //        int mVel;
     private:
         Mix_Music * gMusic;

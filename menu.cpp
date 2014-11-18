@@ -208,16 +208,16 @@ int mainMenu::loadOptions()
         cout << "current volume is " << currentMVolume << endl;
         cout << "current volume / 128 is " << (float)currentMVolume / 128 << endl;
         cout << "current volume percentage is " << (((float)currentMVolume / 128) * 100) << endl;
-        int mStop = (SCREEN_WIDTH / 3) + ((SCREEN_WIDTH / 3) * ((float)currentMVolume / 128));
-        for (int i = SCREEN_WIDTH / 3; i < mStop; i += 10)
+        int mStop = (SCREEN_WIDTH / 9) + (((SCREEN_WIDTH / 9) * 7) * ((float)currentMVolume / 128));
+        for (int i = SCREEN_WIDTH / 9; i < mStop; i += 10)
         {
             SbaR.x = i;
             SbaR.y = 200;
             SDL_RenderCopy(renderer, settingBar, NULL, &SbaR);
         }
-        int sStop = (SCREEN_WIDTH / 3) + ((SCREEN_WIDTH / 3) * ((float)currentSVolume / 128));
+        int sStop = (SCREEN_WIDTH / 9) + (((SCREEN_WIDTH / 9) * 7) * ((float)currentSVolume / 128));
         SDL_RenderCopy(renderer, Svolume, NULL, &SvolumE);
-        for (int i = SCREEN_WIDTH / 3; i < sStop; i += 10)
+        for (int i = SCREEN_WIDTH / 9; i < sStop; i += 10)
         {
             SbaR.x = i;
             SbaR.y = 330;
